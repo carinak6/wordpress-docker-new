@@ -13,7 +13,7 @@ docker exec wordpress_db mysqldump -u root -proot_password wordpress > database-
 
 # Export des fichiers WordPress
 echo "Export des fichiers WordPress..."
-docker cp wordpress_site:/var/www/html ./wordpress-files-backup/wordpress_${BACKUP_DATE}
+tar -czf wordpress-files-backup/wordpress_${BACKUP_DATE}.tar.gz --exclude='./wordpress-files-backup' --exclude='./database-dumps' .
 
 echo "Sauvegarde terminée !"
 echo "Base de données : database-dumps/wordpress_${BACKUP_DATE}.sql"

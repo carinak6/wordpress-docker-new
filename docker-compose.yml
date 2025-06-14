@@ -13,6 +13,7 @@ services:
       MYSQL_ROOT_PASSWORD: root_password
     volumes:
       - db_data:/var/lib/mysql
+      - ./mysql-init:/docker-entrypoint-initdb.d
     networks:
       - wordpress_network
     healthcheck:
@@ -36,7 +37,7 @@ services:
       WORDPRESS_DB_PASSWORD: wordpress_password
       WORDPRESS_DB_NAME: wordpress
     volumes:
-      - wordpress_data:/var/www/html
+      - .:/var/www/html
     networks:
       - wordpress_network
 

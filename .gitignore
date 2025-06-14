@@ -1,10 +1,9 @@
-# WordPress core (if not versioning it)
-wp-admin/
-wp-includes/
-wp-content/upgrade/
-wp-content/backup-db/
-wp-content/cache/
-wp-content/backups/
+# WordPress temporary files
+wordpress_files/wp-content/upgrade/
+wordpress_files/wp-content/backup-db/
+wordpress_files/wp-content/cache/
+wordpress_files/wp-content/backups/
+wordpress_files/wp-content/uploads/
 
 # WordPress configuration
 wp-config.php
