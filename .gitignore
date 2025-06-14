@@ -7,20 +7,44 @@ wordpress_files/wp-content/uploads/
 
 # WordPress configuration
 wp-config.php
+wp-config-docker.php
+.htaccess
 
 # Fichiers sensibles
 .env
+*.env
+auth.json
 
 # Logs and databases
 *.log
 *.sql
 *.sqlite
+*.sql.gz
 
 # Dossiers de conteneurs Docker
 wordpress_data/
 db_data/
 wordpress-files-backup/
+database-dumps/
+mysql-init/
+
+# Cache et fichiers temporaires
+*.cache
+*.tmp
+*.swp
+*.swo
 
 # Fichiers système
 .DS_Store
 Thumbs.db
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+
+# Dépendances et packages
+/vendor/
+/node_modules/
+package-lock.json
+composer.lock
