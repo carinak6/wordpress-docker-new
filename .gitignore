@@ -1,0 +1,27 @@
+# WordPress core (if not versioning it)
+wp-admin/
+wp-includes/
+wp-content/upgrade/
+wp-content/backup-db/
+wp-content/cache/
+wp-content/backups/
+
+# WordPress configuration
+wp-config.php
+
+# Fichiers sensibles
+.env
+
+# Logs and databases
+*.log
+*.sql
+*.sqlite
+
+# Dossiers de conteneurs Docker
+wordpress_data/
+db_data/
+wordpress-files-backup/
+
+# Fichiers système
+.DS_Store
+Thumbs.db
