@@ -17,39 +17,74 @@ Chaque bloc doit avoir cette structure dans le dossier `blocks/`:
 ```
 blocks/
 ├── nom-du-bloc/
-    ├── block.json          # Configuration du bloc (requis)
-    ├── nom-du-bloc.twig    # Template Twig (requis)
-    ├── fields.php          # Champs ACF (requis)
-    └── styles/assets optionnels
+    ├── block.json              # Configuration du bloc (requis)
+    ├── nom-du-bloc.twig        # Template Twig (requis)
+    ├── fields.php              # Champs ACF (requis)
+    ├── nom-du-bloc.js          # JavaScript du bloc (optionnel)
+    └── nom-du-bloc.scss        # Styles SCSS du bloc (optionnel)
 ```
 
-### Exemple : Bloc Hero Section
+### ✨ NOUVEAU : Assets dans le dossier du bloc
+
+Les fichiers JavaScript et SCSS peuvent maintenant être placés **directement dans le dossier du bloc**, ce qui permet de garder tous les fichiers liés à un bloc au même endroit.
+
+### Structure recommandée : Bloc Hero Section
 
 ```
 blocks/hero-section/
-├── block.json
-├── hero-section.twig
-└── fields.php
+├── block.json              # Configuration
+├── hero-section.twig       # Template Twig
+├── fields.php              # Champs ACF
+├── hero-section.js         # JavaScript spécifique
+└── hero-section.scss       # Styles spécifiques
+```
+
+### Structure recommandée : Bloc Card
+
+```
+blocks/card/
+├── block.json              # Configuration
+├── card.twig               # Template Twig
+├── fields.php              # Champs ACF
+├── card.js                 # JavaScript spécifique
+└── card.scss               # Styles spécifiques
 ```
 
 ## 🎨 Assets et Compilation
 
-### Structure des Assets
+### ✨ Structure Simplifiée des Assets
+
+**Nouvelle approche unique :** Tous les assets sont maintenant **uniquement** dans les dossiers des blocs.
+
+#### Structure unique et recommandée
+```
+blocks/nom-du-bloc/
+├── block.json
+├── nom-du-bloc.twig
+├── fields.php
+├── nom-du-bloc.js          # JavaScript du bloc
+└── nom-du-bloc.scss        # Styles du bloc
+```
+
+### Auto-découverte des Assets
+
+Le système Webpack découvre automatiquement les assets **uniquement** dans les dossiers des blocs :
+
+- `blocks/nom-du-bloc/nom-du-bloc.js` → `assets/dist/js/blocks/nom-du-bloc.js`
+- `blocks/nom-du-bloc/nom-du-bloc.scss` → `assets/dist/css/blocks/nom-du-bloc.css`
+
+### Structure des Assets Globaux
 
 ```
 assets/
 ├── js/
 │   ├── theme.js                    # JS principal du thème
 │   ├── blocks-frontend.js          # JS commun pour tous les blocs
-│   ├── blocks-editor.js            # JS pour l'éditeur Gutenberg
-│   └── blocks/
-│       └── hero-section.js         # JS spécifique au bloc
+│   └── blocks-editor.js            # JS pour l'éditeur Gutenberg
 ├── scss/
 │   ├── theme.scss                  # Styles principaux
 │   ├── blocks-frontend.scss        # Styles communs pour les blocs
-│   ├── blocks-editor.scss          # Styles pour l'éditeur
-│   └── blocks/
-│       └── hero-section.scss       # Styles spécifiques au bloc
+│   └── blocks-editor.scss          # Styles pour l'éditeur
 └── dist/                           # Fichiers compilés (généré automatiquement)
     ├── js/
     └── css/
@@ -58,9 +93,6 @@ assets/
 ### Compilation Automatique
 
 Les assets sont automatiquement découverts et compilés via Webpack :
-
-- `assets/js/blocks/nom-du-bloc.js` → `assets/dist/js/blocks/nom-du-bloc.js`
-- `assets/scss/blocks/nom-du-bloc.scss` → `assets/dist/css/blocks/nom-du-bloc.css`
 
 ## 🛠️ Commandes de Développement
 
@@ -162,23 +194,100 @@ acf_add_local_field_group(array(
 </div>
 ```
 
-### 5. Créer les assets (optionnel)
+### 5. Créer les assets (optionnel) - DIRECTEMENT dans le dossier du bloc
 
 ```bash
-# JS spécifique au bloc
-touch assets/js/blocks/mon-nouveau-bloc.js
+# JavaScript spécifique au bloc
+touch mon-nouveau-bloc.js
 
 # SCSS spécifique au bloc
-touch assets/scss/blocks/mon-nouveau-bloc.scss
+touch mon-nouveau-bloc.scss
 ```
 
-### 6. Compiler et tester
+### 6. Exemple de contenu pour `mon-nouveau-bloc.scss`
+
+```scss
+.block-mon-nouveau-bloc {
+  padding: 2rem;
+  background: #f8fafc;
+  border-radius: 8px;
+  
+  h2 {
+    color: var(--primary-color, #667eea);
+    margin: 0;
+  }
+}
+```
+
+### 7. Exemple de contenu pour `mon-nouveau-bloc.js`
+
+```javascript
+class MonNouveauBloc {
+  constructor(element) {
+    this.element = element;
+    this.init();
+  }
+
+  init() {
+    console.log('Mon nouveau bloc initialisé');
+  }
+}
+
+// Auto-initialisation
+document.addEventListener('DOMContentLoaded', () => {
+  const blocs = document.querySelectorAll('.block-mon-nouveau-bloc');
+  blocs.forEach(bloc => new MonNouveauBloc(bloc));
+});
+```
+
+### 8. Compiler et tester
 
 ```bash
 npm run build
 ```
 
 Le bloc apparaîtra automatiquement dans l'éditeur Gutenberg !
+
+## 🚀 Création Automatique de Blocs
+
+### Script `create-block.sh`
+
+Un script Bash est inclus pour créer automatiquement la structure complète d'un nouveau bloc avec tous les fichiers nécessaires.
+
+#### Utilisation
+
+```bash
+# Créer un nouveau bloc
+./create-block.sh nom-du-bloc "Titre du Bloc"
+
+# Exemples
+./create-block.sh gallery "Galerie d'Images"
+./create-block.sh testimonial "Témoignage"
+./create-block.sh accordion "Accordéon"
+```
+
+#### Ce que le script génère automatiquement
+
+- `block.json` - Configuration du bloc
+- `fields.php` - Champs ACF de base (titre et contenu)
+- `nom-du-bloc.twig` - Template Twig de base
+- `nom-du-bloc.scss` - Styles SCSS avec animations
+- `nom-du-bloc.js` - JavaScript avec animations et auto-initialisation
+
+#### Exemple d'utilisation complète
+
+```bash
+# 1. Créer le bloc
+./create-block.sh pricing-table "Tableau de Prix"
+
+# 2. Personnaliser les champs dans blocks/pricing-table/fields.php
+# 3. Modifier le template dans blocks/pricing-table/pricing-table.twig
+# 4. Ajuster les styles dans blocks/pricing-table/pricing-table.scss
+# 5. Compiler
+npm run build
+
+# 6. Le bloc apparaît automatiquement dans Gutenberg !
+```
 
 ## 🐛 Debug et Vérification
 
@@ -197,7 +306,9 @@ docker-compose logs wordpress
 docker-compose logs -f wordpress
 ```
 
-## 🌟 Bloc Hero Section (Exemple Complet)
+## 🌟 Blocs Disponibles
+
+### Hero Section (Exemple Complet)
 
 Le bloc `hero-section` inclut :
 - **Champs ACF** : titre, sous-titre, texte du bouton, lien, image de fond
@@ -205,6 +316,23 @@ Le bloc `hero-section` inclut :
 - **Styles SCSS** avec variables CSS et responsive design
 - **JavaScript** pour interactions avancées
 - **Support** : alignements, ancres, classes personnalisées
+
+### Card (Nouvel Exemple)
+
+Le bloc `card` inclut :
+- **Champs ACF** : image, titre, sous-titre, contenu, bouton, style
+- **Template Twig** flexible avec conditions
+- **Styles SCSS** avec 4 variantes de design
+- **JavaScript** avec animations et effets de hover
+- **Support** : tous les alignements et personnalisations
+
+#### Utilisation du Bloc Card
+
+1. Créer/éditer une page dans WordPress
+2. Ajouter un bloc → Blocs Personnalisés → Carte
+3. Remplir les champs ACF
+4. Choisir un style de carte
+5. Publier la page
 
 ### Utilisation du Bloc Hero
 
@@ -252,13 +380,23 @@ Le bloc `hero-section` inclut :
 
 ## 🔄 Prochaines Étapes Suggérées
 
-1. **Créer d'autres blocs** (cards, testimonials, gallery)
-2. **Ajouter des animations CSS/JS**
-3. **Configurer un système de mise en cache**
-4. **Intégrer des tests automatisés**
-5. **Optimiser les performances**
+1. **Créer d'autres blocs** (testimonials, gallery, accordion)
+2. **Développer des blocs plus complexes** avec interactions avancées
+3. **Ajouter des animations CSS/JS avancées**
+4. **Configurer un système de mise en cache**
+5. **Intégrer des tests automatisés**
+6. **Optimiser les performances**
+
+### ✅ Architecture Simplifiée
+
+Avec la nouvelle structure simplifiée :
+- ✅ Tous les assets d'un bloc dans un seul dossier
+- ✅ Plus de confusion sur l'emplacement des fichiers
+- ✅ Maintenance facilitée
+- ✅ Création rapide avec le script `create-block.sh`
 
 ---
 
-**Statut :** ✅ Prêt pour le développement
+**Statut :** ✅ Prêt pour le développement avancé
+**Architecture :** ✨ Structure unique et simplifiée
 **Dernière mise à jour :** 31 juillet 2025

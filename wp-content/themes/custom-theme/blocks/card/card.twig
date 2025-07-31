@@ -1,0 +1,33 @@
+<article class="{{ block.classes }} card--style-{{ fields.style|default('default') }}">
+    {% if fields.image %}
+        <div class="card__image">
+            <img src="{{ fields.image.sizes.medium_large }}" 
+                 alt="{{ fields.image.alt|default(fields.title) }}"
+                 loading="lazy">
+        </div>
+    {% endif %}
+    
+    <div class="card__content">
+        {% if fields.title %}
+            <h3 class="card__title">{{ fields.title }}</h3>
+        {% endif %}
+        
+        {% if fields.subtitle %}
+            <p class="card__subtitle">{{ fields.subtitle }}</p>
+        {% endif %}
+        
+        {% if fields.content %}
+            <div class="card__text">
+                {{ fields.content|nl2br }}
+            </div>
+        {% endif %}
+        
+        {% if fields.button_text and fields.button_link %}
+            <div class="card__actions">
+                <a href="{{ fields.button_link }}" class="card__button">
+                    {{ fields.button_text }}
+                </a>
+            </div>
+        {% endif %}
+    </div>
+</article>

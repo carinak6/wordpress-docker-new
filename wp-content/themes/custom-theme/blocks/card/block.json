@@ -1,0 +1,17 @@
+{
+  "name": "card",
+  "title": "Carte",
+  "description": "Une carte élégante avec image, titre, texte et bouton",
+  "category": "custom-blocks",
+  "icon": "format-image",
+  "keywords": ["card", "carte", "image", "texte"],
+  "supports": {
+    "align": ["left", "center", "right", "wide", "full"],
+    "anchor": true,
+    "customClassName": true,
+    "spacing": {
+      "margin": true,
+      "padding": true
+    }
+  }
+}

@@ -259,27 +259,29 @@ class CustomTheme extends \Timber\Site {
         $block_config = array_merge($defaults, $config);
         $block_config['render_template'] = get_template_directory() . '/blocks/' . $block_name . '/' . $block_name . '.twig';
         
-        // Enqueue des assets spécifiques au bloc si ils existent
-        $js_file = get_template_directory() . '/assets/dist/js/blocks/' . $block_name . '.js';
-        $css_file = get_template_directory() . '/assets/dist/css/blocks/' . $block_name . '.css';
+        // Chercher UNIQUEMENT les assets compilés (générés depuis les dossiers des blocs)
+        $js_file_compiled = get_template_directory() . '/assets/dist/js/blocks/' . $block_name . '.js';
+        $css_file_compiled = get_template_directory() . '/assets/dist/css/blocks/' . $block_name . '.css';
         
-        if (file_exists($js_file)) {
+        // Enqueue JS si le fichier compilé existe
+        if (file_exists($js_file_compiled)) {
             wp_register_script(
                 'block-' . $block_name . '-script',
                 get_template_directory_uri() . '/assets/dist/js/blocks/' . $block_name . '.js',
                 array('custom-blocks-frontend'),
-                filemtime($js_file),
+                filemtime($js_file_compiled),
                 true
             );
             $block_config['enqueue_script'] = 'block-' . $block_name . '-script';
         }
         
-        if (file_exists($css_file)) {
+        // Enqueue CSS si le fichier compilé existe
+        if (file_exists($css_file_compiled)) {
             wp_register_style(
                 'block-' . $block_name . '-style',
                 get_template_directory_uri() . '/assets/dist/css/blocks/' . $block_name . '.css',
                 array('custom-blocks-frontend'),
-                filemtime($css_file)
+                filemtime($css_file_compiled)
             );
             $block_config['enqueue_style'] = 'block-' . $block_name . '-style';
         }

@@ -13,9 +13,11 @@ function getBlockEntries() {
             .map(dirent => dirent.name);
         
         blockFolders.forEach(blockName => {
-            const jsFile = path.resolve(__dirname, 'assets/js/blocks', `${blockName}.js`);
-            const scssFile = path.resolve(__dirname, 'assets/scss/blocks', `${blockName}.scss`);
+            const blockDir = path.resolve(blocksDir, blockName);
+            const jsFile = path.resolve(blockDir, `${blockName}.js`);
+            const scssFile = path.resolve(blockDir, `${blockName}.scss`);
             
+            // Chercher UNIQUEMENT dans le dossier du bloc
             if (fs.existsSync(jsFile)) {
                 entries[`js/blocks/${blockName}`] = jsFile;
             }
