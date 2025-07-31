@@ -1,0 +1,325 @@
+/**
+ * Styles SCSS pour l'éditeur Gutenberg
+ * Ces styles ne s'appliquent que dans l'éditeur
+ */
+
+// Variables spécifiques à l'éditeur
+$editor-padding: 20px;
+$editor-border-color: #ddd;
+$editor-bg-color: #f9f9f9;
+
+// Styles pour les blocs dans l'éditeur
+.block-editor-block-list__layout {
+  
+  // Container principal pour tous nos blocs
+  [data-type^="acf/"] {
+    position: relative;
+    
+    // Indicateur visuel pour les blocs personnalisés
+    &:after {
+      content: "Bloc personnalisé";
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      background: #667eea;
+      color: white;
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-weight: bold;
+      z-index: 10;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    &:hover:after,
+    &.is-selected:after {
+      opacity: 1;
+    }
+    
+    // Styles pour les blocs sélectionnés
+    &.is-selected {
+      .acf-block-component {
+        border: 2px solid #667eea;
+        border-radius: 4px;
+      }
+    }
+    
+    // Styles pour les aperçus de blocs
+    .acf-block-preview {
+      background: $editor-bg-color;
+      border: 2px dashed $editor-border-color;
+      padding: $editor-padding;
+      text-align: center;
+      border-radius: 8px;
+      margin: 10px 0;
+      position: relative;
+      min-height: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      
+      .block-preview-label {
+        background: rgba(102, 126, 234, 0.9);
+        color: white;
+        padding: 8px 12px;
+        border-radius: 4px;
+        font-size: 12px;
+        font-weight: 600;
+        margin-bottom: 8px;
+        display: inline-block;
+      }
+      
+      .block-preview-description {
+        color: #666;
+        font-size: 11px;
+        margin-top: 4px;
+      }
+      
+      &.has-background {
+        background-size: cover;
+        background-position: center;
+        color: white;
+        
+        .block-preview-label {
+          background: rgba(0, 0, 0, 0.8);
+        }
+      }
+    }
+  }
+  
+  // Styles spécifiques pour le bloc Hero Section dans l'éditeur
+  [data-type="acf/hero-section"] {
+    .hero-section {
+      min-height: 300px;
+      
+      // Simulation d'un arrière-plan dans l'éditeur
+      &:not(.has-background) {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      }
+      
+      // Ajuster les couleurs pour la lisibilité dans l'éditeur
+      .hero-section__title {
+        color: white;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+      }
+      
+      .hero-section__subtitle {
+        color: rgba(255, 255, 255, 0.9);
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+      }
+      
+      .hero-section__description {
+        color: rgba(255, 255, 255, 0.95);
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+      }
+    }
+  }
+}
+
+// Améliorer l'interface ACF dans l'éditeur
+.acf-fields {
+  
+  // Styles pour les onglets ACF
+  .acf-tab-wrap {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    overflow: hidden;
+    
+    .acf-tab-group {
+      background: #f8f9fa;
+      border-bottom: 1px solid #ddd;
+      
+      li {
+        &.active a {
+          background: #667eea;
+          color: white;
+        }
+        
+        a {
+          padding: 12px 16px;
+          transition: all 0.3s ease;
+          
+          &:hover {
+            background: #e9ecef;
+          }
+        }
+      }
+    }
+  }
+  
+  // Améliorer l'apparence des champs
+  .acf-field {
+    margin-bottom: 20px;
+    
+    &.acf-field-text,
+    &.acf-field-textarea,
+    &.acf-field-wysiwyg {
+      .acf-input {
+        input[type="text"],
+        textarea {
+          border: 2px solid #e1e5e9;
+          border-radius: 6px;
+          padding: 12px;
+          transition: border-color 0.3s ease;
+          
+          &:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            outline: none;
+          }
+        }
+      }
+    }
+    
+    // Champs d'image avec aperçu amélioré
+    &.acf-field-image {
+      .acf-image-uploader {
+        border: 2px dashed #ddd;
+        border-radius: 8px;
+        transition: border-color 0.3s ease;
+        
+        &:hover {
+          border-color: #667eea;
+        }
+        
+        .image-wrap {
+          border-radius: 6px;
+          overflow: hidden;
+        }
+      }
+    }
+    
+    // Améliorer les sélecteurs de couleur
+    &.acf-field-color-picker {
+      .acf-color-picker {
+        border-radius: 6px;
+        overflow: hidden;
+      }
+    }
+    
+    // Améliorer les champs range
+    &.acf-field-range {
+      .acf-range-wrap {
+        .acf-range-input {
+          appearance: none;
+          height: 6px;
+          background: #e1e5e9;
+          border-radius: 3px;
+          
+          &::-webkit-slider-thumb {
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            background: #667eea;
+            border-radius: 50%;
+            cursor: pointer;
+          }
+          
+          &::-moz-range-thumb {
+            width: 18px;
+            height: 18px;
+            background: #667eea;
+            border-radius: 50%;
+            cursor: pointer;
+            border: none;
+          }
+        }
+      }
+    }
+  }
+  
+  // Améliorer les labels des champs
+  .acf-label {
+    label {
+      font-weight: 600;
+      color: #2d3748;
+      margin-bottom: 6px;
+    }
+  }
+  
+  // Messages d'aide plus visibles
+  .acf-notice {
+    &.-info {
+      background: #e6f3ff;
+      border-color: #667eea;
+      color: #2d3748;
+    }
+  }
+}
+
+// Améliorer l'inserter de blocs
+.block-editor-inserter__panel-content {
+  
+  // Mettre en évidence la catégorie des blocs personnalisés
+  .block-editor-inserter__panel-title {
+    &:has-text("Blocs Personnalisés") {
+      color: #667eea;
+      font-weight: bold;
+      
+      &:before {
+        content: "🎨 ";
+      }
+    }
+  }
+  
+  // Styliser les blocs personnalisés dans l'inserter
+  .block-editor-block-types-list__item {
+    &[data-block-name^="acf/"] {
+      .block-editor-block-types-list__item-icon {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+      }
+      
+      .block-editor-block-types-list__item-title {
+        color: #667eea;
+        font-weight: 600;
+      }
+    }
+  }
+}
+
+// Responsive pour l'éditeur
+@media (max-width: 768px) {
+  .acf-fields {
+    .acf-field {
+      margin-bottom: 15px;
+      
+      .acf-input {
+        input[type="text"],
+        textarea {
+          padding: 10px;
+        }
+      }
+    }
+  }
+}
+
+// Mode sombre pour l'éditeur (si supporté)
+@media (prefers-color-scheme: dark) {
+  .block-editor-block-list__layout {
+    [data-type^="acf/"] {
+      .acf-block-preview {
+        background: #2d3748;
+        border-color: #4a5568;
+        color: #e2e8f0;
+      }
+    }
+  }
+  
+  .acf-fields {
+    .acf-field {
+      .acf-input {
+        input[type="text"],
+        textarea {
+          background: #2d3748;
+          border-color: #4a5568;
+          color: #e2e8f0;
+        }
+      }
+    }
+  }
+}

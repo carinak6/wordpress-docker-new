@@ -1,0 +1,316 @@
+// Variables SCSS pour le bloc Hero Section
+$hero-section-z-index: 1;
+$hero-section-overlay-z-index: 2;
+$hero-section-content-z-index: 3;
+
+// Mixins pour les animations
+@mixin fadeInUp($delay: 0s) {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeInUp 0.8s ease-out #{$delay} forwards;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Bloc Hero Section
+.hero-section {
+  position: relative;
+  overflow: hidden;
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  // Variantes de hauteur
+  &--height-small {
+    min-height: 60vh;
+  }
+  
+  &--height-medium {
+    min-height: 80vh;
+  }
+  
+  &--height-large {
+    min-height: 100vh;
+  }
+  
+  // Arrière-plan
+  &__background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: $hero-section-z-index;
+  }
+  
+  &__bg-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+  
+  &__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: $hero-section-overlay-z-index;
+  }
+  
+  // Container
+  &__container {
+    position: relative;
+    z-index: $hero-section-content-z-index;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    
+    @media (max-width: 768px) {
+      padding: 1rem;
+    }
+  }
+  
+  // Contenu
+  &__content {
+    text-align: center;
+    color: #fff;
+    
+    // Variantes d'alignement
+    .hero-section--align-left & {
+      text-align: left;
+    }
+    
+    .hero-section--align-right & {
+      text-align: right;
+    }
+  }
+  
+  &__title {
+    font-size: clamp(2rem, 5vw, 4rem);
+    font-weight: 700;
+    line-height: 1.1;
+    margin: 0 0 1rem 0;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    
+    // Animation
+    &[data-animate="fadeInUp"] {
+      @include fadeInUp(0s);
+    }
+  }
+  
+  &__subtitle {
+    font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+    font-weight: 400;
+    margin: 0 0 1.5rem 0;
+    opacity: 0.9;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    
+    // Animation
+    &[data-animate="fadeInUp"] {
+      @include fadeInUp(0.2s);
+    }
+  }
+  
+  &__description {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin: 0 0 2rem 0;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    opacity: 0.95;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    
+    .hero-section--align-left & {
+      margin-left: 0;
+      margin-right: auto;
+    }
+    
+    .hero-section--align-right & {
+      margin-left: auto;
+      margin-right: 0;
+    }
+    
+    // Animation
+    &[data-animate="fadeInUp"] {
+      @include fadeInUp(0.4s);
+    }
+    
+    p {
+      margin: 0 0 1rem 0;
+      
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+  
+  // Actions (boutons)
+  &__actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    
+    .hero-section--align-left & {
+      justify-content: flex-start;
+    }
+    
+    .hero-section--align-right & {
+      justify-content: flex-end;
+    }
+    
+    // Animation
+    &[data-animate="fadeInUp"] {
+      @include fadeInUp(0.6s);
+    }
+    
+    @media (max-width: 480px) {
+      flex-direction: column;
+      align-items: center;
+      
+      .hero-section--align-left & {
+        align-items: flex-start;
+      }
+      
+      .hero-section--align-right & {
+        align-items: flex-end;
+      }
+    }
+  }
+  
+  // Les styles des boutons sont définis dans la classe .btn ci-dessous
+}
+
+// Boutons spécifiques au hero
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+  }
+  
+  &:hover:before {
+    left: 100%;
+  }
+  
+  &__icon {
+    transition: transform 0.3s ease;
+  }
+  
+  &:hover &__icon {
+    transform: translateX(4px);
+  }
+  
+  // Bouton primaire
+  &--primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #fff;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+    
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+    }
+    
+    &:active {
+      transform: translateY(0);
+    }
+  }
+  
+  // Bouton secondaire
+  &--secondary {
+    background: transparent;
+    color: #fff;
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    
+    &:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: #fff;
+      transform: translateY(-2px);
+    }
+    
+    &:active {
+      transform: translateY(0);
+    }
+  }
+  
+  @media (max-width: 480px) {
+    padding: 0.8rem 1.5rem;
+    font-size: 0.9rem;
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+// Responsive
+@media (max-width: 768px) {
+  .hero-section {
+    min-height: 50vh;
+    
+    &--height-small {
+      min-height: 50vh;
+    }
+    
+    &--height-medium {
+      min-height: 60vh;
+    }
+    
+    &--height-large {
+      min-height: 80vh;
+    }
+    
+    &__content {
+      text-align: center !important; // Force center on mobile
+    }
+    
+    &__actions {
+      justify-content: center !important; // Force center on mobile
+    }
+  }
+}
+
+// Mode édition (Gutenberg)
+.block-editor-block-list__layout .hero-section {
+  min-height: 300px;
+  
+  &__title {
+    color: #333;
+  }
+  
+  &__subtitle {
+    color: #666;
+  }
+  
+  &__description {
+    color: #555;
+  }
+}

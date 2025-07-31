@@ -1,0 +1,22 @@
+/**
+ * Styles principaux du thème
+ */
+
+// Import des fichiers de base (doit être en premier)
+@use 'blocks-frontend' as *;
+@use 'blocks/hero-section';
+
+// Variables du thème
+:root {
+  --theme-primary: #667eea;
+  --theme-secondary: #764ba2;
+  --theme-text: #2d3748;
+  --theme-background: #ffffff;
+}
+
+// Styles globaux du thème
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.6;
+  color: var(--theme-text);
+}

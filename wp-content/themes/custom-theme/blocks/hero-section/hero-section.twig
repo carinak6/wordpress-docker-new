@@ -1,0 +1,52 @@
+{# Template Twig pour le bloc Hero Section #}
+<section class="hero-section {{ block.classes }}"{% if block.anchor %} id="{{ block.anchor }}"{% endif %} data-block-id="{{ block.id }}">
+    {% if fields.background_image %}
+        <div class="hero-section__background">
+            <img src="{{ fields.background_image.url }}" alt="{{ fields.background_image.alt ?: '' }}" class="hero-section__bg-image">
+            {% if fields.background_overlay %}
+                <div class="hero-section__overlay" style="background-color: {{ fields.background_overlay }}; opacity: {{ fields.overlay_opacity / 100 }}"></div>
+            {% endif %}
+        </div>
+    {% endif %}
+    
+    <div class="hero-section__container">
+        <div class="hero-section__content">
+            {% if fields.title %}
+                <h1 class="hero-section__title" data-animate="fadeInUp">
+                    {{ fields.title }}
+                </h1>
+            {% endif %}
+            
+            {% if fields.subtitle %}
+                <p class="hero-section__subtitle" data-animate="fadeInUp" data-delay="200">
+                    {{ fields.subtitle }}
+                </p>
+            {% endif %}
+            
+            {% if fields.description %}
+                <div class="hero-section__description" data-animate="fadeInUp" data-delay="400">
+                    {{ fields.description|wp_content }}
+                </div>
+            {% endif %}
+            
+            {% if fields.button_text and fields.button_url %}
+                <div class="hero-section__actions" data-animate="fadeInUp" data-delay="600">
+                    <a href="{{ fields.button_url }}" 
+                       class="hero-section__button btn btn--primary"
+                       {% if fields.button_target %}target="{{ fields.button_target }}"{% endif %}>
+                        {{ fields.button_text }}
+                        <span class="btn__icon">→</span>
+                    </a>
+                    
+                    {% if fields.secondary_button_text and fields.secondary_button_url %}
+                        <a href="{{ fields.secondary_button_url }}" 
+                           class="hero-section__button btn btn--secondary"
+                           {% if fields.secondary_button_target %}target="{{ fields.secondary_button_target }}"{% endif %}>
+                            {{ fields.secondary_button_text }}
+                        </a>
+                    {% endif %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</section>

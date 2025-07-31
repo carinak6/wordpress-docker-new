@@ -1,0 +1,28 @@
+{
+  "name": "hero-section",
+  "title": "Section Hero",
+  "description": "Un bloc hero avec titre, sous-titre, bouton et image de fond",
+  "category": "custom-blocks",
+  "icon": "format-image",
+  "keywords": ["hero", "banner", "section"],
+  "supports": {
+    "align": ["wide", "full"],
+    "anchor": true,
+    "customClassName": true,
+    "spacing": {
+      "margin": true,
+      "padding": true
+    }
+  },
+  "example": {
+    "attributes": {
+      "mode": "preview",
+      "data": {
+        "title": "Bienvenue sur notre site",
+        "subtitle": "Découvrez nos services exceptionnels",
+        "button_text": "En savoir plus",
+        "button_url": "#"
+      }
+    }
+  }
+}
