@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html {{ site.language_attributes }}>
+<head>
+    <meta charset="{{ site.charset }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+        {% block title %}
+            {% if title %}{{ title }} - {% endif %}{{ site.name }}
+        {% endblock %}
+    </title>
+    {{ function('wp_head') }}
+</head>
+<body class="{{ body_class }}">
+    <header class="site-header">
+        <div class="container">
+            <h1 class="site-title">
+                <a href="{{ site.url }}">{{ site.name }}</a>
+            </h1>
+            {% if site.description %}
+                <p class="site-description">{{ site.description }}</p>
+            {% endif %}
+            <nav class="main-navigation">
+                {% if menu %}
+                    {{ menu }}
+                {% endif %}
+            </nav>
+        </div>
+    </header>
+
+    <main class="site-main">
+        <div class="container">
+            {% block content %}
+                <p>Contenu par défaut</p>
+            {% endblock %}
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; {{ "now"|date("Y") }} {{ site.name }}. Tous droits réservés.</p>
+            {% if menu_footer %}
+                <nav class="footer-navigation">
+                    {{ menu_footer }}
+                </nav>
+            {% endif %}
+        </div>
+    </footer>
+
+    {{ function('wp_footer') }}
+</body>
+</html>

@@ -1,0 +1,66 @@
+// Variables SCSS
+
+// Couleurs principales
+$primary-color: #007cba;
+$secondary-color: #50c878;
+$accent-color: #ff6b6b;
+
+// Couleurs de texte
+$color-text: #333333;
+$text-muted: #666666;
+$text-light: #999999;
+$heading-color: #222222;
+
+// Couleurs de fond
+$bg-primary: #ffffff;
+$bg-secondary: #f8f9fa;
+$bg-light: #f1f3f4;
+$bg-dark: #2c3e50;
+
+// Couleurs d'état
+$success-color: #28a745;
+$warning-color: #ffc107;
+$error-color: #dc3545;
+$info-color: #17a2b8;
+
+// Typographie
+$font-family-base: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$font-family-heading: 'Georgia', Times, serif;
+$font-size-base: 16px;
+$line-height-base: 1.6;
+$line-height-heading: 1.2;
+
+// Espacements
+$spacing-xs: 0.25rem; // 4px
+$spacing-sm: 0.5rem;  // 8px
+$spacing-md: 1rem;    // 16px
+$spacing-lg: 2rem;    // 32px
+$spacing-xl: 4rem;    // 64px
+
+// Breakpoints
+$breakpoint-mobile: 768px;
+$breakpoint-tablet: 1024px;
+$breakpoint-desktop: 1200px;
+
+// Conteneurs
+$container-max-width: 1200px;
+$container-padding: 15px;
+
+// Bordures
+$border-radius: 4px;
+$border-radius-sm: 2px;
+$border-radius-lg: 8px;
+
+// Ombres
+$shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.12);
+$shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+$shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.15);
+
+// Z-index
+$z-dropdown: 1000;
+$z-sticky: 1020;
+$z-fixed: 1030;
+$z-modal-backdrop: 1040;
+$z-modal: 1050;
+$z-popover: 1060;
+$z-tooltip: 1070;

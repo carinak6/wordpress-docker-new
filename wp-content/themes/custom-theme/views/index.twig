@@ -1,0 +1,64 @@
+{% extends "base.twig" %}
+
+{% block content %}
+    <div class="debug-info">
+        <p>Nombre de posts: {{ posts|length }}</p>
+    </div>
+    
+    {% if posts and posts|length > 0 %}
+        {% for post in posts %}
+            <article class="post">
+                <header class="post-header">
+                    <h2 class="post-title">
+                        <a href="{{ post.link }}">{{ post.title }}</a>
+                    </h2>
+                    <div class="post-meta">
+                        <time datetime="{{ post.date|date('c') }}">
+                            {{ post.date|date('j F Y') }}
+                        </time>
+                        <span class="post-author">par {{ post.author.name }}</span>
+                    </div>
+                </header>
+                
+                {% if post.thumbnail %}
+                    <div class="post-thumbnail">
+                        <a href="{{ post.link }}">
+                            <img src="{{ post.thumbnail.src }}" alt="{{ post.thumbnail.alt }}">
+                        </a>
+                    </div>
+                {% endif %}
+                
+                <div class="post-content">
+                    {{ post.filtered_content }}
+                </div>
+                
+                {% if post.tags %}
+                    <footer class="post-footer">
+                        <div class="post-tags">
+                            {% for tag in post.tags %}
+                                <a href="{{ tag.link }}" class="tag">{{ tag.name }}</a>
+                            {% endfor %}
+                        </div>
+                    </footer>
+                {% endif %}
+            </article>
+        {% endfor %}
+
+        {% if pagination %}
+            <nav class="pagination">
+                {{ pagination }}
+            </nav>
+        {% endif %}
+    {% else %}
+        <div class="no-posts">
+            <h2>Aucun article trouvé</h2>
+            <p>Il semble qu'il n'y ait pas encore de contenu publié.</p>
+            <p>Variables disponibles:</p>
+            <ul>
+                <li>Site: {{ site.name }}</li>
+                <li>Posts: {{ posts is defined ? 'défini' : 'non défini' }}</li>
+                <li>Context keys: {% for key in _context|keys %}{{ key }}, {% endfor %}</li>
+            </ul>
+        </div>
+    {% endif %}
+{% endblock %}

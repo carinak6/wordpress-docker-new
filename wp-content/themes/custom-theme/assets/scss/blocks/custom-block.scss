@@ -1,0 +1,19 @@
+// Styles pour le bloc personnalisé
+.custom-block {
+    padding: 2rem;
+    margin: 2rem 0;
+    background: #f8f9fa;
+    border-radius: 4px;
+    
+    &__title {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+        color: #333;
+    }
+    
+    &__content {
+        font-size: 1.1rem;
+        line-height: 1.6;
+        color: #666;
+    }
+}

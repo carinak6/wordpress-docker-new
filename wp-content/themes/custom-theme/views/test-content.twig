@@ -1,0 +1,31 @@
+{% extends "base.twig" %}
+
+{% block content %}
+    <div class="debug-content">
+        <h2>Test du contenu</h2>
+        
+        {% if posts and posts|length > 0 %}
+            {% set post = posts[0] %}
+            
+            <div class="test-section">
+                <h3>1. Contenu brut (post.content)</h3>
+                <pre>{{ post.content|e }}</pre>
+            </div>
+            
+            <div class="test-section">
+                <h3>2. Contenu avec notre filtre wp_content</h3>
+                <pre>{{ post.content|wp_content|e }}</pre>
+            </div>
+            
+            <div class="test-section">
+                <h3>3. Rendu final avec |raw</h3>
+                <div style="border: 1px solid #ccc; padding: 10px;">
+                    {{ post.content|wp_content|raw }}
+                </div>
+            </div>
+            
+        {% else %}
+            <p>Aucun post trouvé pour le test</p>
+        {% endif %}
+    </div>
+{% endblock %}

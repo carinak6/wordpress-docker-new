@@ -1,0 +1,38 @@
+// Import des variables et mixins
+@import 'base/variables';
+@import 'base/mixins';
+
+// Styles généraux du thème
+body {
+    font-family: $font-family-base;
+    line-height: $line-height-base;
+    color: $color-text;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: $font-family-heading;
+    line-height: $line-height-heading;
+}
+
+// Styles pour les conteneurs
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+// Styles responsive
+@include mobile {
+    .container {
+        padding: 0 10px;
+    }
+}
+
+@include tablet {
+    .container {
+        max-width: 960px;
+    }
+}
+
+// Import des styles des blocs
+@import 'blocks/custom-block';
